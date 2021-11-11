@@ -9,3 +9,4 @@
 *.pem
 # production
 /build
+/dist
