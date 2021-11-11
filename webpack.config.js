@@ -14,12 +14,33 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
-        loader: "ts-loader",
+        test: /\.ts$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "swc-loader",
+          options: {
+            jsc: {
+              parser: {
+                syntax: "typescript",
+              },
+            },
+          },
+        },
       },
       {
-        test: /\.tsx?$/,
-        loader: "ts-loader",
+        test: /\.tsx$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "swc-loader",
+          options: {
+            jsc: {
+              parser: {
+                tsx: true,
+                syntax: "typescript",
+              },
+            },
+          },
+        },
       },
       {
         test: /\.html$/,
@@ -35,7 +56,6 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./public/options.html",
       filename: "./options.html",
-      chunks: ["app"],
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",

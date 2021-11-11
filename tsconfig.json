@@ -10,5 +10,6 @@
     "lib": ["es5", "es6", "dom"],
     "jsx": "react"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "types": ["chrome"]
 }
