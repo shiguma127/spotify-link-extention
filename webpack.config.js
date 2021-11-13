@@ -11,6 +11,9 @@ module.exports = {
   output: {
     path: __dirname + "/dist",
   },
+  resolve: {
+    extensions: [".ts", ".tsx","..."],
+  },
   module: {
     rules: [
       {
@@ -62,7 +65,10 @@ module.exports = {
       chunkFilename: "[id].css",
     }),
     new CopyPlugin({
-      patterns: [{ from: "./public/manifest.json", to: "./manifest.json" }],
+      patterns: [
+        { from: "./public/manifest.json", to: "./manifest.json" },
+        { from: "./public/resources", to: "./resources" },
+      ],
     }),
   ],
 };
