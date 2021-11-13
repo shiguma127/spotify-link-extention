@@ -1,3 +1,6 @@
+import api from "./api/$api";
+import aspida, { FetchConfig } from "@aspida/fetch";
+
 const observer = new MutationObserver(() => {
   const lodingContainer: HTMLElement = document.querySelector(
     ".js-app-loading"
@@ -10,18 +13,52 @@ const observer = new MutationObserver(() => {
   const addSpotifyLinkButton = document.createElement("button");
   addSpotifyLinkButton.className =
     "btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12";
+  addSpotifyLinkButton.id = "add-spotify-link-button";
   addSpotifyLinkButton.dataset.originalTitle = "tabindex";
   const icon = document.createElement("img");
-  icon.className = "Icon icon-camera txt-size--18";
-  //todo: add icon
-  //icon.src = chrome.runtime.getURL("icons/spotify.svg");
+  icon.className = "Icon txt-size--21";
+  icon.src = chrome.runtime.getURL("/resources/Spotify_Icon_RGB_Green.png");
+  icon.style.position = "absolute";
+  icon.style.alignSelf = "center";
   const span = document.createElement("span");
   span.className = "label padding-ls";
   span.innerText = "Add Spotify Link";
+  span.style.marginLeft = "23px";
   addSpotifyLinkButton.appendChild(icon);
   addSpotifyLinkButton.appendChild(span);
+  addSpotifyLinkButton.addEventListener("click", addSpotifyLink);
   addImageButton.after(addSpotifyLinkButton);
 });
+
+async function addSpotifyLink() {
+  const fetchConfig: FetchConfig = {
+    baseURL: "http://localhost:3333",
+    credentials: "include",
+    mode: "cors",
+  };
+  const client = api(aspida(fetch, fetchConfig));
+  const response = await client.$get().catch(console.error);
+  if (!response) return;
+  response.kind = `full${response.hasOwnProperty('show') ? 'episode' : 'track'}`;
+  switch (response.kind) {
+    case "fulltrack":
+      appendTweet(response.name);
+      break;
+    case "fullepisode":
+      appendTweet(response.name);
+      break;
+  }
+}
+
+function appendTweet(tweet: string) {
+  console.log("tweetArea");
+  const tweetArea = document.querySelector(
+    ".js-compose-text.compose-text"
+  ) as HTMLTextAreaElement;
+  const event = new Event("change");
+  tweetArea.value += tweet;
+  tweetArea.dispatchEvent(event);
+}
 
 observer.observe(document.body, {
   attributes: true,
