@@ -10,6 +10,6 @@
     "lib": ["es5", "es6", "dom"],
     "jsx": "react"
   },
-  "include": ["./src/**/*"],
-  "types": ["chrome"]
+  "include": ["./src/**/*", "type/spotify", "src/api"],
+  "types": ["chrome"],
 }
