@@ -10,7 +10,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["Resources/Spotify_Icon_RGB_Green.png"],
+      "resources": ["resources/Spotify_Icon_RGB_Green.png"],
       "matches": ["<all_urls>"]
     }
   ],
