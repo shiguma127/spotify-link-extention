@@ -59,6 +59,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./public/options.html",
       filename: "./options.html",
+      chunks: ["options"],
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
