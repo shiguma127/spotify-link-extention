@@ -39,7 +39,9 @@ async function addSpotifyLink() {
   const client = api(aspida(fetch, fetchConfig));
   const response = await client.$get().catch(console.error);
   if (!response) return;
-  response.kind = `full${response.hasOwnProperty('show') ? 'episode' : 'track'}`;
+  response.kind = `full${
+    response.hasOwnProperty("show") ? "episode" : "track"
+  }`;
   switch (response.kind) {
     case "fulltrack":
       appendTweet(response.name);
@@ -51,7 +53,6 @@ async function addSpotifyLink() {
 }
 
 function appendTweet(tweet: string) {
-  console.log("tweetArea");
   const tweetArea = document.querySelector(
     ".js-compose-text.compose-text"
   ) as HTMLTextAreaElement;
