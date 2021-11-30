@@ -5,9 +5,29 @@ const PlaceholderDiscriptionTableHeader = () => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>PlaceHolder</TableCell>
-        <TableCell align="right">require</TableCell>
-        <TableCell align="right">Discription</TableCell>
+        <TableCell
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
+          PlaceHolder
+        </TableCell>
+        <TableCell
+          align="right"
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
+          require
+        </TableCell>
+        <TableCell
+          align="right"
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
+          Discription
+        </TableCell>
       </TableRow>
     </TableHead>
   );
