@@ -23,16 +23,16 @@ type propsType = {
 const PlaceholderForm: React.VFC<propsType> = (props) => {
   const [defaultValue, setDefaultValue] = React.useState<string>("");
   useEffect(() => {
-    chrome.storage.sync.get(props.ItemType.type, (result) => {
-      if (result[props.ItemType.type]) {
-        setDefaultValue(result[props.ItemType.type]);
+    chrome.storage.sync.get("placeholder", (result) => {
+      const placeholder = result["placeholder"][props.ItemType.type];
+      if (placeholder.trim()) {
+        setDefaultValue(placeholder);
       } else {
         setDefaultValue(props.ItemType.defaultPlaceholder);
       }
     });
   }, []);
   useEffect(() => {
-    console.log(defaultValue);
     props.onChange(defaultValue);
   },[defaultValue])
   return (
@@ -92,7 +92,7 @@ const PlaceholderForm: React.VFC<propsType> = (props) => {
                 }}
               >
                 <PlaceholderDiscription rows={props.placeholderDiscription} />
-              </AccordionDetails>
+              </AccordionDetails>11
             </Accordion>
           </Paper>
         </Grid>

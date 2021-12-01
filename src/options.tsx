@@ -7,7 +7,7 @@ import { PlaceholderDiscriptionType } from "../type/PlaceholderDiscriptionType";
 import PlaceholderForm from "./components/PlaceholderForm";
 import TrackPlaceholder from "./TrackPlaceholder";
 import EpisodePlaceholder from "./EpisodePlaceholder";
-import {Items} from "../type/spotify/ItemType";
+import { Items } from "../type/spotify/ItemType";
 const themeOptions: ThemeOptions = {
   palette: {
     primary: {
@@ -39,6 +39,19 @@ const App = () => {
     React.useState("");
   const [EpisodePlaceHolderString, setEpisodePlaceHolderString] =
     React.useState("");
+  const save = () => {
+    chrome.storage.sync.set(
+      {
+        placeholder: {
+          Track: TrackPlaceholderString,
+          Episode: EpisodePlaceHolderString,
+        },
+      },
+      function () {
+        console.log("saved");
+      }
+    );
+  };
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -66,9 +79,7 @@ const App = () => {
       >
         <Button
           variant="contained"
-          onClick={() =>
-            console.log(TrackPlaceholderString + EpisodePlaceHolderString)
-          }
+          onClick={save}
         >
           Save
         </Button>
