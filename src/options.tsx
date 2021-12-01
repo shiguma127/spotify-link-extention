@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Box, Button, CssBaseline, Grid, TextField } from "@mui/material";
+import { Alert, Box, Button, CssBaseline, Snackbar } from "@mui/material";
 import { createTheme, ThemeProvider, ThemeOptions } from "@mui/material/styles";
 import AppHeader from "./components/AppHeader";
-import { PlaceholderDiscriptionType } from "../type/PlaceholderDiscriptionType";
 import PlaceholderForm from "./components/PlaceholderForm";
 import TrackPlaceholder from "./TrackPlaceholder";
 import EpisodePlaceholder from "./EpisodePlaceholder";
@@ -22,23 +21,15 @@ const themeOptions: ThemeOptions = {
   },
 };
 const theme = createTheme(themeOptions);
-const rows: Array<PlaceholderDiscriptionType> = [
-  {
-    placeholder: "Hello World",
-    required: false,
-    discription: "This is a placeholder discription",
-  },
-  {
-    placeholder: "Hello World2",
-    required: true,
-    discription: "This is a placeholder discription",
-  },
-];
 const App = () => {
   const [TrackPlaceholderString, setTrackPlaceholderString] =
     React.useState("");
   const [EpisodePlaceHolderString, setEpisodePlaceHolderString] =
     React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const closeHandler = () => {
+    setOpen(false);
+  };
   const save = () => {
     chrome.storage.sync.set(
       {
@@ -48,7 +39,7 @@ const App = () => {
         },
       },
       function () {
-        console.log("saved");
+        setOpen(true);
       }
     );
   };
@@ -77,13 +68,20 @@ const App = () => {
           margin: "30px",
         }}
       >
-        <Button
-          variant="contained"
-          onClick={save}
-        >
+        <Button variant="contained" onClick={save}>
           Save
         </Button>
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={closeHandler}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert variant="filled" onClose={closeHandler} severity="success" sx={{ width: "100%" }}>
+          Saved!!
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 };
