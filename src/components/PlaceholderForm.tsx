@@ -8,18 +8,33 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import PlaceholderDiscription from "./PlaceholderDiscription";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { PlaceholderDiscriptionType } from "../../type/PlaceholderDiscriptionType";
+import { ItemType } from "../../type/spotify/ItemType";
 
 type propsType = {
   placeholderDiscription: PlaceholderDiscriptionType[];
-  placeholderType: string;
+  ItemType: ItemType;
   onChange?: Function;
 };
 
-const PlaceholderForm:React.VFC<propsType>= (props) => {
+const PlaceholderForm: React.VFC<propsType> = (props) => {
+  const [defaultValue, setDefaultValue] = React.useState<string>("");
+  useEffect(() => {
+    chrome.storage.sync.get(props.ItemType.type, (result) => {
+      if (result[props.ItemType.type]) {
+        setDefaultValue(result[props.ItemType.type]);
+      } else {
+        setDefaultValue(props.ItemType.defaultPlaceholder);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    console.log(defaultValue);
+    props.onChange(defaultValue);
+  },[defaultValue])
   return (
     <Box
       sx={{
@@ -50,11 +65,13 @@ const PlaceholderForm:React.VFC<propsType>= (props) => {
           >
             <TextField
               id="outlined-multiline-static"
-              label="EpisodePlaceHolder"
+              label={"PlaceHolder"}
               multiline
               rows={4}
-              onChange={(e) => { props.onChange(e.target.value) }}
-              defaultValue={"#NowListening\n%name%\n%url%"}
+              onChange={(e) => {
+                setDefaultValue(e.target.value);
+              }}
+              defaultValue={defaultValue}
               sx={{
                 width: "60vw",
               }}
@@ -66,7 +83,7 @@ const PlaceholderForm:React.VFC<propsType>= (props) => {
               }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>{props.placeholderType}</Typography>
+                <Typography>{props.ItemType.type+"Placeholder"}</Typography>
               </AccordionSummary>
               <AccordionDetails
                 sx={{

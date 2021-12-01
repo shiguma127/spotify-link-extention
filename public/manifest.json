@@ -14,5 +14,6 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "permissions": ["storage"]
 }

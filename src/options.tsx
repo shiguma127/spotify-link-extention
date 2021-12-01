@@ -7,7 +7,7 @@ import { PlaceholderDiscriptionType } from "../type/PlaceholderDiscriptionType";
 import PlaceholderForm from "./components/PlaceholderForm";
 import TrackPlaceholder from "./TrackPlaceholder";
 import EpisodePlaceholder from "./EpisodePlaceholder";
-
+import {Items} from "../type/spotify/ItemType";
 const themeOptions: ThemeOptions = {
   palette: {
     primary: {
@@ -45,14 +45,14 @@ const App = () => {
       <AppHeader />
       <PlaceholderForm
         placeholderDiscription={TrackPlaceholder}
-        placeholderType="TrackPlaceHolder"
+        ItemType={Items.Track}
         onChange={(value: React.SetStateAction<string>) =>
           setTrackPlaceholderString(value)
         }
       />
       <PlaceholderForm
         placeholderDiscription={EpisodePlaceholder}
-        placeholderType="EpisodePlaceHolder"
+        ItemType={Items.Episode}
         onChange={(value: React.SetStateAction<string>) =>
           setEpisodePlaceHolderString(value)
         }
