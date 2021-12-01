@@ -1,5 +1,7 @@
 import api from "./api/$api";
 import aspida, { FetchConfig } from "@aspida/fetch";
+import { replacePlaceholder, toTrack, toEpisode, getPlaceholder } from "./util";
+import { Items, ItemType } from "../type/spotify/ItemType";
 
 const observer = new MutationObserver(() => {
   const lodingContainer: HTMLElement = document.querySelector(
@@ -43,21 +45,28 @@ async function addSpotifyLink() {
     response.hasOwnProperty("show") ? "episode" : "track"
   }`;
   switch (response.kind) {
-    case "fulltrack":
-      appendTweet(response.name);
+    case "fulltrack": {
+      const placeholder = await getPlaceholder(Items.Track);
+      const text = replacePlaceholder(toTrack(response), placeholder);
+      console.log(placeholder);
+      appendTweet(text);
       break;
-    case "fullepisode":
-      appendTweet(response.name);
+    }
+    case "fullepisode": {
+      const placeholder = await getPlaceholder(Items.Episode);
+      const text = replacePlaceholder(toEpisode(response), placeholder);
+      appendTweet(text);
       break;
+    }
   }
 }
 
-function appendTweet(tweet: string) {
+function appendTweet(text: string) {
   const tweetArea = document.querySelector(
     ".js-compose-text.compose-text"
   ) as HTMLTextAreaElement;
   const event = new Event("change");
-  tweetArea.value += tweet;
+  tweetArea.value += text;
   tweetArea.dispatchEvent(event);
 }
 

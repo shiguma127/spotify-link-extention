@@ -13,6 +13,7 @@ import PlaceholderDiscription from "./PlaceholderDiscription";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { PlaceholderDiscriptionType } from "../../type/PlaceholderDiscriptionType";
 import { ItemType } from "../../type/spotify/ItemType";
+import { getPlaceholder } from "../util";
 
 type propsType = {
   placeholderDiscription: PlaceholderDiscriptionType[];
@@ -23,8 +24,8 @@ type propsType = {
 const PlaceholderForm: React.VFC<propsType> = (props) => {
   const [defaultValue, setDefaultValue] = React.useState<string>("");
   useEffect(() => {
-    chrome.storage.sync.get("placeholder", (result) => {
-      const placeholder = result["placeholder"][props.ItemType.type];
+    chrome.storage.sync.get("placeholder", (value) => {
+      const placeholder = value.placeholder[props.ItemType.type];
       if (placeholder.trim()) {
         setDefaultValue(placeholder);
       } else {
@@ -34,7 +35,7 @@ const PlaceholderForm: React.VFC<propsType> = (props) => {
   }, []);
   useEffect(() => {
     props.onChange(defaultValue);
-  },[defaultValue])
+  }, [defaultValue]);
   return (
     <Box
       sx={{
@@ -83,7 +84,7 @@ const PlaceholderForm: React.VFC<propsType> = (props) => {
               }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>{props.ItemType.type+"Placeholder"}</Typography>
+                <Typography>{props.ItemType.type + "Placeholder"}</Typography>
               </AccordionSummary>
               <AccordionDetails
                 sx={{
@@ -92,7 +93,7 @@ const PlaceholderForm: React.VFC<propsType> = (props) => {
                 }}
               >
                 <PlaceholderDiscription rows={props.placeholderDiscription} />
-              </AccordionDetails>11
+              </AccordionDetails>
             </Accordion>
           </Paper>
         </Grid>

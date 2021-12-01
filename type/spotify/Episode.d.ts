@@ -1,4 +1,5 @@
 export type Episode = {
-    name: string;
-    url: string;
-}
+  [key: string]: string;
+  name: string;
+  url: string;
+};
