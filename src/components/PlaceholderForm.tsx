@@ -13,7 +13,6 @@ import PlaceholderDiscription from "./PlaceholderDiscription";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { PlaceholderDiscriptionType } from "../../type/PlaceholderDiscriptionType";
 import { ItemType } from "../../type/spotify/ItemType";
-import { getPlaceholder } from "../util";
 
 type propsType = {
   placeholderDiscription: PlaceholderDiscriptionType[];
