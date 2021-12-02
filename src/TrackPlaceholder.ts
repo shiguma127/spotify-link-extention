@@ -4,22 +4,22 @@ const array: PlaceholderDiscriptionType[] = [
   {
     placeholder: "%name%",
     required: false,
-    discription: "",
+    discription: "Song title",
   },
   {
     placeholder: "%artists%",
     required: false,
-    discription: "",
+    discription: "Song Artist",
   },
   {
     placeholder: "%album_name%",
     required: false,
-    discription: "",
+    discription: "Album name",
   },
   {
     placeholder: "%url%",
     required: true,
-    discription: "",
+    discription: "URL to listen to the song on Spotify",
   },
 ];
 
