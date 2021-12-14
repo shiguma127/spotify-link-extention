@@ -34,7 +34,7 @@ const observer = new MutationObserver(() => {
 
 async function addSpotifyLink() {
   const fetchConfig: FetchConfig = {
-    baseURL: "http://localhost:3333",
+    baseURL: "https://spotify_link_extension_worker.shiguma.workers.dev/",
     credentials: "include",
     mode: "cors",
   };

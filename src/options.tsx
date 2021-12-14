@@ -7,7 +7,6 @@ import {
   Button,
   CssBaseline,
   Snackbar,
-  SnackbarOrigin,
 } from "@mui/material";
 import { createTheme, ThemeProvider, ThemeOptions } from "@mui/material/styles";
 import AppHeader from "./components/AppHeader";

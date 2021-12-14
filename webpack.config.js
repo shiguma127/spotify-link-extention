@@ -2,8 +2,14 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
+  performance: {
+    maxAssetSize: 512000,
+    maxEntrypointSize: 512000,
+  },
   entry: {
     options: "./src/options.tsx",
     content_script: "./src/content_script.ts",
@@ -12,7 +18,7 @@ module.exports = {
     path: __dirname + "/dist",
   },
   resolve: {
-    extensions: [".ts", ".tsx","..."],
+    extensions: [".ts", ".tsx", "..."],
   },
   module: {
     rules: [
