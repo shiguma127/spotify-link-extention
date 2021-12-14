@@ -39,7 +39,13 @@ async function addSpotifyLink() {
     mode: "cors",
   };
   const client = api(aspida(fetch, fetchConfig));
-  const response = await client.$get().catch(console.error);
+  const response = await client.$get().catch(e => {
+    console.error(e);
+    console.log(
+      `if you are not logged in you can login here "https://spotify_link_extension_worker.shiguma.workers.dev/login"\nif you haven't played anything on the Spotify client, play it.`
+    );
+    alert(`An error has occurred, please check the console`);
+  });
   if (!response) return;
   response.kind = `full${
     response.hasOwnProperty("show") ? "episode" : "track"
