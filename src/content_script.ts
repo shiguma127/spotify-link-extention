@@ -54,7 +54,6 @@ async function addSpotifyLink() {
     case "fulltrack": {
       const placeholder = await getPlaceholder(Items.Track);
       const text = replacePlaceholder(toTrack(response), placeholder);
-      console.log(placeholder);
       appendTweet(text);
       break;
     }
@@ -75,6 +74,7 @@ function appendTweet(text: string) {
   tweetArea.value += text;
   tweetArea.dispatchEvent(event);
 }
+
 
 observer.observe(document.body, {
   attributes: true,

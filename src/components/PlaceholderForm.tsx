@@ -24,6 +24,11 @@ const PlaceholderForm: React.VFC<propsType> = (props) => {
   const [defaultValue, setDefaultValue] = React.useState<string>("");
   useEffect(() => {
     chrome.storage.sync.get("placeholder", (value) => {
+      console.log(Object.keys(value).length);
+      if (!Object.keys(value).length) {
+        setDefaultValue(props.ItemType.defaultPlaceholder);
+        return;
+      }
       const placeholder = value.placeholder[props.ItemType.type];
       if (placeholder.trim()) {
         setDefaultValue(placeholder);
