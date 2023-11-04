@@ -1,7 +1,7 @@
-import api from "./api/$api";
+import api from "../api/$api";
 import aspida, { FetchConfig } from "@aspida/fetch";
-import { replacePlaceholder, toTrack, toEpisode, getPlaceholder } from "./util";
-import { Items } from "../type/spotify/ItemType";
+import { replacePlaceholder, toTrack, toEpisode, getPlaceholder } from "../util";
+import { Items } from "../../type/spotify/ItemType";
 
 const API_URL = "https://spotify-extension-api.shiguma.net/"
 

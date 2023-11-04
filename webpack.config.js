@@ -10,7 +10,9 @@ module.exports = {
   },
   entry: {
     options: "./src/options.tsx",
-    content_script: "./src/content_script.ts",
+    "contentScripts/tweetdeck": "./src/contentScripts/tweetdeck.ts",
+    //
+    "contentScripts/twitter": "./src/contentScripts/twitter.ts",
   },
   output: {
     path: __dirname + "/dist",
