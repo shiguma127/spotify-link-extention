@@ -3,6 +3,8 @@ import aspida, { FetchConfig } from "@aspida/fetch";
 import { replacePlaceholder, toTrack, toEpisode, getPlaceholder } from "./util";
 import { Items } from "../type/spotify/ItemType";
 
+const API_URL = "https://spotify-extension-api.shiguma.net/"
+
 const observer = new MutationObserver(() => {
   const drawr: HTMLElement = document.querySelector(
     ".js-drawer:not(.is-hidden)"
@@ -33,17 +35,13 @@ const drawrObserver = new MutationObserver(() => {
 
 async function addSpotifyLink() {
   const fetchConfig: FetchConfig = {
-    baseURL: "https://spotify_link_extension_worker.shiguma.workers.dev/",
+    baseURL: API_URL,
     credentials: "include",
     mode: "cors",
   };
   const client = api(aspida(fetch, fetchConfig));
-  const response = await client.$get().catch((e) => {
-    console.error(e);
-    console.log(
-      `if you are not logged in you can login here "https://spotify_link_extension_worker.shiguma.workers.dev/login"\nif you haven't played anything on the Spotify client, play it.`
-    );
-    alert(`An error has occurred, please check the console`);
+  const response = await client.$get().catch((_) => {
+    window.open(API_URL+"login", "_blank")
   });
   if (!response) return;
   response.kind = `full${
@@ -85,7 +83,7 @@ function genarateBtn() {
     "btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12";
   addSpotifyLinkButton.id = "add-spotify-link-button";
   addSpotifyLinkButton.dataset.originalTitle = "tabindex";
-  
+
   //アイコンを作成
   const icon = document.createElement("img");
   icon.className = "Icon txt-size--21";
